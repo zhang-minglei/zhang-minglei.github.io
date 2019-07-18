@@ -4,8 +4,18 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="test, zhangminglei blog">
-    <meta name="description" content="test | zhangminglei blog">
+    <meta name="keywords" content="创建和销毁对象, zhangminglei blog">
+    <meta name="description" content="第二章 创建和销毁对象1.考虑用静态工厂方法代替构造器
+优势：
+
+有名称，易于理解
+可以重复利用对象，避免创建重复的对象
+可以返回原返回类型的任何子类型对象
+
+2.遇到多个构造器参数时要考虑用构建器
+三种模式：
+1. 构造器模式
+当很多参数">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -13,7 +23,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>test | zhangminglei blog</title>
+    <title>创建和销毁对象 | zhangminglei blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -215,13 +225,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/10.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        test
+                        创建和销毁对象
                     </div>
                 </div>
             </div>
@@ -311,12 +321,25 @@
             <div class="row tag-cate">
                 <div class="col s7">
                     
-                          <div class="article-tag">
-                            <span class="chip bg-color">无标签</span>
-                          </div>
+                    <div class="article-tag">
+                        
+                            <a href="/tags/effective-java/" target="_blank">
+                                <span class="chip bg-color">effective java</span>
+                            </a>
+                        
+                    </div>
                     
                 </div>
                 <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/读书/" class="post-category" target="_blank">
+                                读书
+                            </a>
+                        
+                    </div>
                     
                 </div>
             </div>
@@ -331,14 +354,14 @@
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        0
+                        597
                     </div>
                     
 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-clock-o fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                        1 分
+                        2 分
                     </div>
                     
                 
@@ -354,7 +377,95 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                
+                <h1 id="第二章-创建和销毁对象"><a href="#第二章-创建和销毁对象" class="headerlink" title="第二章 创建和销毁对象"></a>第二章 创建和销毁对象</h1><h2 id="1-考虑用静态工厂方法代替构造器"><a href="#1-考虑用静态工厂方法代替构造器" class="headerlink" title="1.考虑用静态工厂方法代替构造器"></a>1.考虑用静态工厂方法代替构造器</h2><blockquote>
+<h4 id="优势："><a href="#优势：" class="headerlink" title="优势："></a>优势：</h4></blockquote>
+<ul>
+<li>有名称，易于理解</li>
+<li>可以重复利用对象，避免创建重复的对象</li>
+<li>可以返回原返回类型的任何子类型对象</li>
+</ul>
+<h2 id="2-遇到多个构造器参数时要考虑用构建器"><a href="#2-遇到多个构造器参数时要考虑用构建器" class="headerlink" title="2.遇到多个构造器参数时要考虑用构建器"></a>2.遇到多个构造器参数时要考虑用构建器</h2><blockquote>
+<h4 id="三种模式："><a href="#三种模式：" class="headerlink" title="三种模式："></a>三种模式：</h4></blockquote>
+<h5 id="1-构造器模式"><a href="#1-构造器模式" class="headerlink" title="1. 构造器模式"></a>1. 构造器模式</h5><ul>
+<li>当很多参数的时候，难编写，难阅读</li>
+</ul>
+<h5 id="2-JavaBeans模式"><a href="#2-JavaBeans模式" class="headerlink" title="2. JavaBeans模式"></a>2. JavaBeans模式</h5><ul>
+<li>调用无参构造器创建对象，然后调用setter方法赋值</li>
+<li>弥补构造器模式的缺点，创建对象容易，易阅读</li>
+<li>set过程被分到几个调用中，JavaBean可能处于不一致状态，需要额外保证线程安全<h5 id="3-Builder模式"><a href="#3-Builder模式" class="headerlink" title="3. Builder模式"></a>3. Builder模式</h5></li>
+<li>客户端利用所有必要的参数调用构造器得到builder对象，然后客户端在builder对象上调用类似setter的方法，来设置可选的参数，最后客户端调用无参的build方法生成不可变对象。</li>
+</ul>
+<blockquote>
+<p>示例</p>
+</blockquote>
+<pre class=" language-java"><code class="language-java"><span class="token comment" spellcheck="true">// Builder Pattern - Pages 14-15</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">NutritionFacts</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">int</span> servingSize<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">int</span> servings<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">int</span> calories<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">int</span> fat<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">int</span> sodium<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">int</span> carbohydrate<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">class</span> <span class="token class-name">Builder</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Required parameters</span>
+        <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">int</span> servingSize<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token keyword">int</span> servings<span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// Optional parameters - initialized to default values</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span> calories      <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span> fat           <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span> carbohydrate  <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">private</span> <span class="token keyword">int</span> sodium        <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token function">Builder</span><span class="token punctuation">(</span><span class="token keyword">int</span> servingSize<span class="token punctuation">,</span> <span class="token keyword">int</span> servings<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>servingSize <span class="token operator">=</span> servingSize<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>servings    <span class="token operator">=</span> servings<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> Builder <span class="token function">calories</span><span class="token punctuation">(</span><span class="token keyword">int</span> val<span class="token punctuation">)</span>
+            <span class="token punctuation">{</span> calories <span class="token operator">=</span> val<span class="token punctuation">;</span>      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+        <span class="token keyword">public</span> Builder <span class="token function">fat</span><span class="token punctuation">(</span><span class="token keyword">int</span> val<span class="token punctuation">)</span>
+            <span class="token punctuation">{</span> fat <span class="token operator">=</span> val<span class="token punctuation">;</span>           <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+        <span class="token keyword">public</span> Builder <span class="token function">carbohydrate</span><span class="token punctuation">(</span><span class="token keyword">int</span> val<span class="token punctuation">)</span>
+            <span class="token punctuation">{</span> carbohydrate <span class="token operator">=</span> val<span class="token punctuation">;</span>  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+        <span class="token keyword">public</span> Builder <span class="token function">sodium</span><span class="token punctuation">(</span><span class="token keyword">int</span> val<span class="token punctuation">)</span>
+            <span class="token punctuation">{</span> sodium <span class="token operator">=</span> val<span class="token punctuation">;</span>        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> NutritionFacts <span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">NutritionFacts</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">private</span> <span class="token function">NutritionFacts</span><span class="token punctuation">(</span>Builder builder<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        servingSize  <span class="token operator">=</span> builder<span class="token punctuation">.</span>servingSize<span class="token punctuation">;</span>
+        servings     <span class="token operator">=</span> builder<span class="token punctuation">.</span>servings<span class="token punctuation">;</span>
+        calories     <span class="token operator">=</span> builder<span class="token punctuation">.</span>calories<span class="token punctuation">;</span>
+        fat          <span class="token operator">=</span> builder<span class="token punctuation">.</span>fat<span class="token punctuation">;</span>
+        sodium       <span class="token operator">=</span> builder<span class="token punctuation">.</span>sodium<span class="token punctuation">;</span>
+        carbohydrate <span class="token operator">=</span> builder<span class="token punctuation">.</span>carbohydrate<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        NutritionFacts cocaCola <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">NutritionFacts<span class="token punctuation">.</span>Builder</span><span class="token punctuation">(</span><span class="token number">240</span><span class="token punctuation">,</span> <span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">.</span>
+            <span class="token function">calories</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">sodium</span><span class="token punctuation">(</span><span class="token number">35</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">carbohydrate</span><span class="token punctuation">(</span><span class="token number">27</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">build</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="3-用私有构造器或枚举类型强化singleton属性"><a href="#3-用私有构造器或枚举类型强化singleton属性" class="headerlink" title="3. 用私有构造器或枚举类型强化singleton属性"></a>3. 用私有构造器或枚举类型强化singleton属性</h2><blockquote>
+<h4 id="Singleton指仅被实例化一次的类"><a href="#Singleton指仅被实例化一次的类" class="headerlink" title="Singleton指仅被实例化一次的类"></a>Singleton指仅被实例化一次的类</h4></blockquote>
+<ul>
+<li>包含单个元素的枚举类型也可以实现Singleton</li>
+</ul>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">enum</span> Elvis <span class="token punctuation">{</span>
+    INSTANCE<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">leaveTheBuilding</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<h2 id="4-通过私有构造器强化不可实例化的能力"><a href="#4-通过私有构造器强化不可实例化的能力" class="headerlink" title="4. 通过私有构造器强化不可实例化的能力"></a>4. 通过私有构造器强化不可实例化的能力</h2><ul>
+<li>例如：java.util.Arrays，java.util.Collections</li>
+<li>企图通过将类做成抽象类来强制该类不可被实例化，这是行不通的。该类可以被子类化，且子类可以被实例化，这样做甚至会误导用户以为该类是为了继承而设计。</li>
+</ul>
+<h2 id="5-避免创建不必要的对象"><a href="#5-避免创建不必要的对象" class="headerlink" title="5. 避免创建不必要的对象"></a>5. 避免创建不必要的对象</h2><h2 id="6-消除过期的对象引用"><a href="#6-消除过期的对象引用" class="headerlink" title="6. 消除过期的对象引用"></a>6. 消除过期的对象引用</h2><h2 id="7-避免使用终结方法"><a href="#7-避免使用终结方法" class="headerlink" title="7. 避免使用终结方法"></a>7. 避免使用终结方法</h2>
             </div>
             <hr/>
 
@@ -494,7 +605,7 @@
                     </span>
                     <a href="http://yoursite.com" class="b-link-green">zhangminglei blog</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/07/18/test/" class="b-link-green">test</a>
+                    <a href="/2019/07/18/book/effective-java/2.创建和销毁对象/" class="b-link-green">创建和销毁对象</a>
                 </p>
             </div>
         </div>
@@ -515,10 +626,9 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
                 <a href="/2019/07/18/test/">
                     <div class="card-image">
@@ -532,9 +642,9 @@
                 <div class="card-content article-content">
                     <div class="summary"></div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-18
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-18
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-user fa-fw"></i>
@@ -543,7 +653,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
@@ -551,7 +660,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+                本篇&nbsp;<i class="fa fa-dot-circle-o"></i>
             </div>
             <div class="card">
                 <a href="/2019/07/18/book/effective-java/2.创建和销毁对象/">
@@ -591,6 +700,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
