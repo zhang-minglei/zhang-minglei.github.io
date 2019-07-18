@@ -4,13 +4,25 @@
   
     
     <entry>
-      <title>test</title>
-      <link href="/2019/07/18/test/"/>
-      <url>/2019/07/18/test/</url>
+      <title>对于所有对象都通用的方法</title>
+      <link href="/2019/07/18/book/effective-java/3.%E5%AF%B9%E4%BA%8E%E6%89%80%E6%9C%89%E5%AF%B9%E8%B1%A1%E9%83%BD%E9%80%9A%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+      <url>/2019/07/18/book/effective-java/3.%E5%AF%B9%E4%BA%8E%E6%89%80%E6%9C%89%E5%AF%B9%E8%B1%A1%E9%83%BD%E9%80%9A%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h1 id="第三章-对于所有对象都通用的方法"><a href="#第三章-对于所有对象都通用的方法" class="headerlink" title="第三章 对于所有对象都通用的方法"></a>第三章 对于所有对象都通用的方法</h1><h2 id="8-实现高质量equals方法的诀窍"><a href="#8-实现高质量equals方法的诀窍" class="headerlink" title="8. 实现高质量equals方法的诀窍"></a>8. 实现高质量equals方法的诀窍</h2><ol><li>使用==操作符检查“参数是否为这个对象的引用”，如果是，返回true；</li><li>使用instanceof操作符检查“参数是否为正确类型”，所谓正确类型，是指equals所在的类，有些情况下是指该类实现的某个接口；</li><li>把参数转换成正确类型，因为转换之前进行过instanceof的测试，所以会确保成功；</li><li>对于该类中的每个“关键”域，检查参数中的域是否与该对象对应的域相匹配；为了获得最佳的性能，应该优先比较最可能不一致的域；</li><li>编写完的equals方法要保证：对称性、一致性、传递性；</li><li>覆盖equals时总要覆盖hashCode</li><li>不要将equals方法中的Object对象替换为其他类型的对象；</li></ol><h2 id="9-覆盖equals时总要覆盖hashCode"><a href="#9-覆盖equals时总要覆盖hashCode" class="headerlink" title="9. 覆盖equals时总要覆盖hashCode"></a>9. 覆盖equals时总要覆盖hashCode</h2><ol><li>equals相同，hashcode一定相同；</li><li>equals不同，hashcode不一定不同；</li><li>一个好的散列函数通常倾向于“为不相等的对象产生不相等的散列码”；</li></ol><h2 id="10-始终要覆盖toString"><a href="#10-始终要覆盖toString" class="headerlink" title="10. 始终要覆盖toString"></a>10. 始终要覆盖toString</h2><h2 id="11-谨慎的覆盖clone"><a href="#11-谨慎的覆盖clone" class="headerlink" title="11. 谨慎的覆盖clone"></a>11. 谨慎的覆盖clone</h2><blockquote><p>尤其是对象的属性是引用类型的，需要手动来深度拷贝</p></blockquote><h2 id="12-考虑实现comparable接口"><a href="#12-考虑实现comparable接口" class="headerlink" title="12. 考虑实现comparable接口"></a>12. 考虑实现comparable接口</h2>]]></content>
       
       
+      <categories>
+          
+          <category> 读书 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> effective java </tag>
+            
+        </tags>
       
     </entry>
     
