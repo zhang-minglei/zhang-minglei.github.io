@@ -628,7 +628,7 @@
     let gitalk = new Gitalk({
         clientID: 'e58516de45ead3d59fc5',
         clientSecret: '50b9b95de317d449367fad94a8919850e0f7ad6b',
-        repo: 'zhang-minglei.github.io',
+        repo: 'zml-gittalk',
         owner: 'zhang-minglei',
         admin: "zhang-minglei",
         id: '2019-07-18T12-30-00',
@@ -652,36 +652,29 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
-            </div>
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/07/18/book/effective-java/2.创建和销毁对象/">
+                <a href="/2019/07/18/book/effective-java/11.序列化/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="创建和销毁对象">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="序列化">
                         
-                        <span class="card-title">创建和销毁对象</span>
+                        <span class="card-title">序列化</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">第二章 创建和销毁对象1.考虑用静态工厂方法代替构造器
-优势：
+                    <div class="summary">第十一章 序列化74. 谨慎的实现serializable接口
+实现serializable的代价
 
-有名称，易于理解
-可以重复利用对象，避免创建重复的对象
-可以返回原返回类型的任何子类型对象
-
-2.遇到多个构造器参数时要考虑用构建器
-三种模式：
-1. 构造器模式
-当很多参数</div>
+最大的代价：一旦一个类被发布，就大大降低了“改变这个类的实现”的灵活性
+增加了出现bug和安全漏洞的可能性，反序列化是一个隐藏的构造器，依</div>
                     <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-18
-                            </span>
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-18
+                        </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
@@ -694,7 +687,6 @@
                         </span>
                     </div>
                 </div>
-
                 
                 <div class="card-action article-tags">
                     
@@ -713,21 +705,22 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/18/book/effective-java/11.序列化/">
+                <a href="/2019/07/18/book/effective-java/4.类和接口/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="序列化">
+                        <img src="/medias/featureimages/7.jpg" class="responsive-img" alt="类和接口">
                         
-                        <span class="card-title">序列化</span>
+                        <span class="card-title">类和接口</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">第十一章 序列化74. 谨慎的实现serializable接口
-实现serializable的代价
+                    <div class="summary">第四章 类和接口13. 使类和成员的可访性最小化
+封装：降低耦合，提高重用性
+实例域决不能是公有的
+公有类不应该包含公有域（除非公有静态final域），要确保公有静态final域所引用的对象都是不可变的
 
-最大的代价：一旦一个类被发布，就大大降低了“改变这个类的实现”的灵活性
-增加了出现bug和安全漏洞的可能性，反序列化是一个隐藏的构造器，依</div>
+14. 在公有类中使用访问方法而非</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-18
