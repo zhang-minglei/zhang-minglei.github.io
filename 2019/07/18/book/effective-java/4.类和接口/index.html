@@ -657,18 +657,20 @@
             <div class="article-badge left-badge text-color">
                 <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2019/07/18/book/effective-java/5.泛型/">
+                <a href="/2019/07/18/book/effective-java/6.枚举和注解/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="泛型">
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="枚举和注解">
                         
-                        <span class="card-title">泛型</span>
+                        <span class="card-title">枚举和注解</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">第五章 泛型23. 不要使用原生态类型，要使用泛型24. 消除非受检警告@SuperWarnings(“unchecked”)要尽可能小的范围
-25. 列表优于数组26. 优先考虑泛型27. 优先考虑泛型方法28. 利用有限制通配符来提升a</div>
+                    <div class="summary">第六章 枚举和注解30. 用enum代替int常量31. 用实例域代替序数32. 用EnumSet代替位域
+EnumSet是线程不安全的，需要借助Collections.synchronizedSet
+
+Set&lt;MyEnum> s =</div>
                     <div class="publish-info">
                         <span class="publish-date">
                             <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-18
@@ -703,21 +705,20 @@
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/18/book/effective-java/11.序列化/">
+                <a href="/2019/07/18/book/effective-java/7.方法/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="序列化">
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="方法">
                         
-                        <span class="card-title">序列化</span>
+                        <span class="card-title">方法</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">第十一章 序列化74. 谨慎的实现serializable接口
-实现serializable的代价
+                    <div class="summary">第七章 方法38. 检查参数的有效性39. 必要时进行保护性拷贝
+保护性拷贝实在参数有效性检查(38)之前进行的，而且有效性检查是针对拷贝之后的对象，这样做可以避免从检查参数到拷贝对象之间的时间段内从另一个线程改变类的参数
 
-最大的代价：一旦一个类被发布，就大大降低了“改变这个类的实现”的灵活性
-增加了出现bug和安全漏洞的可能性，反序列化是一个隐藏的构造器，依</div>
+40. 谨慎设</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-18
