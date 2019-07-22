@@ -4,11 +4,9 @@
 
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-    <meta name="keywords" content="方法, zhangminglei&#39;s blog">
-    <meta name="description" content="第七章 方法38. 检查参数的有效性39. 必要时进行保护性拷贝
-保护性拷贝实在参数有效性检查(38)之前进行的，而且有效性检查是针对拷贝之后的对象，这样做可以避免从检查参数到拷贝对象之间的时间段内从另一个线程改变类的参数
-
-40. 谨慎设">
+    <meta name="keywords" content="抽象文档模式, zhangminglei&#39;s blog">
+    <meta name="description" content="
+">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -16,7 +14,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>方法 | zhangminglei&#39;s blog</title>
+    <title>抽象文档模式 | zhangminglei&#39;s blog</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
@@ -222,13 +220,13 @@
 
 
 
-<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+<div class="bg-cover post-cover" style="background-image: url('/medias/featureimages/22.jpg')">
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
                     <div class="description center-align post-title">
-                        方法
+                        抽象文档模式
                     </div>
                 </div>
             </div>
@@ -320,8 +318,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/effective-java/" target="_blank">
-                                <span class="chip bg-color">effective java</span>
+                            <a href="/tags/design-pattern/" target="_blank">
+                                <span class="chip bg-color">design pattern</span>
                             </a>
                         
                     </div>
@@ -332,8 +330,8 @@
                     <div class="post-cate">
                         <i class="fa fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/读书/" class="post-category" target="_blank">
-                                读书
+                            <a href="/categories/设计模式/" class="post-category" target="_blank">
+                                设计模式
                             </a>
                         
                     </div>
@@ -344,14 +342,14 @@
             <div class="post-info">
                 <div class="post-date info-break-policy">
                     <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2019-07-18
+                    2019-07-22
                 </div>
 
                 
                     
                     <div class="info-break-policy">
                         <i class="fa fa-file-word-o fa-fw"></i>文章字数:&nbsp;&nbsp;
-                        467
+                        0
                     </div>
                     
 
@@ -374,45 +372,8 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="第七章-方法"><a href="#第七章-方法" class="headerlink" title="第七章 方法"></a>第七章 方法</h1><h2 id="38-检查参数的有效性"><a href="#38-检查参数的有效性" class="headerlink" title="38. 检查参数的有效性"></a>38. 检查参数的有效性</h2><h2 id="39-必要时进行保护性拷贝"><a href="#39-必要时进行保护性拷贝" class="headerlink" title="39. 必要时进行保护性拷贝"></a>39. 必要时进行保护性拷贝</h2><ul>
-<li>保护性拷贝实在参数有效性检查(38)之前进行的，而且有效性检查是针对拷贝之后的对象，这样做可以避免从检查参数到拷贝对象之间的时间段内从另一个线程改变类的参数</li>
-</ul>
-<h2 id="40-谨慎设计方法签名"><a href="#40-谨慎设计方法签名" class="headerlink" title="40. 谨慎设计方法签名"></a>40. 谨慎设计方法签名</h2><ul>
-<li>谨慎选择方法的名称：遵守命名规范、易于理解</li>
-<li>不要过于追求提供便利的方法：方法职责清晰、小方法</li>
-<li>避免过长的参数列表：&lt;=4<ol>
-<li>方法拆分</li>
-<li>创建辅助类，用来保存参数的分组，这些辅助类一般为静态成员类(22)</li>
-<li>从对象构建到方法调用都采用builder模式(2)</li>
-</ol>
-</li>
-<li>对于参数类型，优先使用接口而不是类</li>
-<li>对于boolean参数，优先使用两个元素的枚举类型</li>
-</ul>
-<h2 id="41-慎用重载"><a href="#41-慎用重载" class="headerlink" title="41. 慎用重载"></a>41. 慎用重载</h2><ul>
-<li>对于要调用哪个重载方法，是在编译时作出的决定</li>
-<li>覆盖(Override)方法的选择是在运行时作出的</li>
-</ul>
-<pre class=" language-java"><code class="language-java">List<span class="token operator">&lt;</span>Integer<span class="token operator">></span> list <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ArrayList</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">3</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    list<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">int</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i<span class="token operator">&lt;</span><span class="token number">3</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-    list<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span><span class="token punctuation">;</span>
+                <p><img src="../resource/images/Abstract-Document.png" alt="Abstract Documnet Pattern"></p>
 
-result：<span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">]</span></code></pre>
-<p>原因：List的remove方法有两个重载方法</p>
-<pre class=" language-java"><code class="language-java"><span class="token keyword">boolean</span> <span class="token function">remove</span><span class="token punctuation">(</span>Object o<span class="token punctuation">)</span><span class="token punctuation">;</span>
-E <span class="token function">remove</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span></code></pre>
-<p>Integer类型时是移除对象，而int时是移除制定位置的值</p>
-<blockquote>
-<h4 id="使用重载方法至少应该避免以下情形："><a href="#使用重载方法至少应该避免以下情形：" class="headerlink" title="使用重载方法至少应该避免以下情形："></a>使用重载方法至少应该避免以下情形：</h4></blockquote>
-<ul>
-<li>同一组参数只需经过类型转换就可以传递给不同的重载方法</li>
-</ul>
-<h5 id="要保证传递同样的参数，所有重载方法的行为必须一致"><a href="#要保证传递同样的参数，所有重载方法的行为必须一致" class="headerlink" title="要保证传递同样的参数，所有重载方法的行为必须一致"></a>要保证传递同样的参数，所有重载方法的行为必须一致</h5><h2 id="42-慎用可变参数"><a href="#42-慎用可变参数" class="headerlink" title="42. 慎用可变参数"></a>42. 慎用可变参数</h2><h2 id="43-返回0长度的数组或者集合，而不是null"><a href="#43-返回0长度的数组或者集合，而不是null" class="headerlink" title="43. 返回0长度的数组或者集合，而不是null"></a>43. 返回0长度的数组或者集合，而不是null</h2><h2 id="44-为所有导出的api元素编写文档注释"><a href="#44-为所有导出的api元素编写文档注释" class="headerlink" title="44. 为所有导出的api元素编写文档注释"></a>44. 为所有导出的api元素编写文档注释</h2>
             </div>
             <hr/>
 
@@ -552,7 +513,7 @@ E <span class="token function">remove</span><span class="token punctuation">(</s
                     </span>
                     <a href="http://yoursite.com" class="b-link-green">zhangminglei's blog</a>
                     <i class="fa fa-angle-right fa-lg fa-fw text-color"></i>
-                    <a href="/2019/07/18/book/effective-java/7.方法/" class="b-link-green">方法</a>
+                    <a href="/2019/07/22/pattern/Abstract-Document/" class="b-link-green">抽象文档模式</a>
                 </p>
             </div>
         </div>
@@ -574,7 +535,7 @@ E <span class="token function">remove</span><span class="token punctuation">(</s
         repo: 'zml-gittalk',
         owner: 'zhang-minglei',
         admin: "zhang-minglei",
-        id: '2019-07-18T12-30-00',
+        id: '2019-07-22T12-30-00',
         distractionFreeMode: false  // Facebook-like distraction free mode
     });
 
@@ -595,46 +556,45 @@ E <span class="token function">remove</span><span class="token punctuation">(</s
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="fa fa-dot-circle-o"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2019/07/18/book/effective-java/11.序列化/">
+                <a href="/2019/07/22/pattern/Abstract-Document/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="序列化">
+                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="抽象文档模式">
                         
-                        <span class="card-title">序列化</span>
+                        <span class="card-title">抽象文档模式</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">第十一章 序列化74. 谨慎的实现serializable接口
-实现serializable的代价
-
-最大的代价：一旦一个类被发布，就大大降低了“改变这个类的实现”的灵活性
-增加了出现bug和安全漏洞的可能性，反序列化是一个隐藏的构造器，依</div>
+                    <div class="summary">
+</div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-18
-                        </span>
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fa fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/读书/" class="post-category" target="_blank">
-                                    读书
+                            <a href="/categories/设计模式/" class="post-category" target="_blank">
+                                    设计模式
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/effective-java/" target="_blank">
-                        <span class="chip bg-color">effective java</span>
+                    <a href="/tags/design-pattern/" target="_blank">
+                        <span class="chip bg-color">design pattern</span>
                     </a>
                     
                 </div>
@@ -648,22 +608,18 @@ E <span class="token function">remove</span><span class="token punctuation">(</s
                 下一篇&nbsp;<i class="fa fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2019/07/18/book/effective-java/8.通用程序设计/">
+                <a href="/2019/07/18/book/effective-java/10.并发/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="通用程序设计">
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="并发">
                         
-                        <span class="card-title">通用程序设计</span>
+                        <span class="card-title">并发</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
-                    <div class="summary">第八章 通用程序设计45. 将局部变量的作用域最小化
-要使局部变量作用域最小化的最有力的方法就只在第一次使用它的地方声明
-另一个有效方法是使方法小而集中
-
-46. for-each循环优于传统的for循环
-有三种常见的情况无法使用for-e</div>
+                    <div class="summary">第十章 并发66. 同步访问共享的可变数据
+不要使用Thread.stop。要阻止一个线程妨碍另一个线程，建议做法是让第一个线程轮询一个boolean域，这个域一开始为false，但是可以通过第二个线程设置为true，以表示第一个线程将终止</div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-07-18
