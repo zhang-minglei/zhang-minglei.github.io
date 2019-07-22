@@ -78,7 +78,7 @@ $(function () {
             // 图片添加阴影
             $(this).addClass("img-border img-margin");
             // 图片添加字幕
-            let alt = $(this).attr('alt');
+            /* let alt = $(this).attr('alt');
             let title = $(this).attr('title');
             let captionText = "";
             // 如果alt为空，title来替
@@ -98,7 +98,7 @@ $(function () {
                 captionEle.innerText = captionText;
                 captionDiv.appendChild(captionEle);
                 this.insertAdjacentElement('afterend', captionDiv)
-            }
+            } */
         });
         $('#articleContent, #myGallery').lightGallery({
             selector: '.img-item',
