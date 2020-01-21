@@ -7,12 +7,11 @@
     <meta name="keywords" content="ReentrantLock源码解析, zhangminglei&#39;s blog">
     <meta name="description" content="
 Lock
-
-例子class X {
+class X {
     private final Lock lock = new ReentrantLock();
     public void lock() {
         lock.lock();
-    ">
+       ">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -384,8 +383,7 @@ Lock
             <div id="articleContent">
                 <blockquote>
 <h2 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h2></blockquote>
-<blockquote>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><pre><code>class X {
+<pre><code>class X {
     private final Lock lock = new ReentrantLock();
     public void lock() {
         lock.lock();
@@ -395,7 +393,8 @@ Lock
             lock.unlock();
         }
     }
-}</code></pre><h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3></blockquote>
+}</code></pre><blockquote>
+<h3 id="源码解析"><a href="#源码解析" class="headerlink" title="源码解析"></a>源码解析</h3></blockquote>
 <h3 id="非公平锁"><a href="#非公平锁" class="headerlink" title="非公平锁"></a>非公平锁</h3><pre><code>final void lock() {
     if (compareAndSetState(0, 1))
         //成功则设置独占线程为当前线程
@@ -404,72 +403,222 @@ Lock
         //失败则去调用aqs的acquire方法
         acquire(1);
 }</code></pre><ul>
-<li>AbstractQueuedSynchronizer的acquire方法<pre><code>public final void acquire(int arg) {
-  //子类实现tryAcquire方法，tryAcquire调用了NonfairSync的父类Sync的nonfairTryAcquire方法（下面的 *1）
-  if (!tryAcquire(arg) &amp;&amp;
-      // 如果tryAcquire失败，则不间断的去获取排队的线程（下面的 *2和 *3）
-      acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
-      selfInterrupt();
-}</code></pre></li>
-<li>*1 Sync的nonfairTryAcquire方法<pre><code>/**
-* 先判断state=0的话，直接cas设置state，成功则设置独占线程为当前线程
-* state!=0的话，如果独占线程为当前线程，则state+1，返回true
-* 否则返回false
-*/
-final boolean nonfairTryAcquire(int acquires) {
-  final Thread current = Thread.currentThread();
-  int c = getState();
-  if (c == 0) {
-      if (compareAndSetState(0, acquires)) {
-          setExclusiveOwnerThread(current);
-          return true;
-      }
-  }
-  else if (current == getExclusiveOwnerThread()) {
-      int nextc = c + acquires;
-      if (nextc &lt; 0) // overflow
-          throw new Error(&quot;Maximum lock count exceeded&quot;);
-      setState(nextc);
-      return true;
-  }
-  return false;
-}</code></pre></li>
-<li>*2 AbstractQueuedSynchronizer的addWaiter方法<pre><code>private Node addWaiter(Node mode) {
-  Node node = new Node(Thread.currentThread(), mode);
-  //如果队尾tail不为空，则把该node置为队尾
-  Node pred = tail;
-  if (pred != null) {
-      node.prev = pred;
-      if (compareAndSetTail(pred, node)) {
-          pred.next = node;
-          return node;
-      }
-  }
-  // 队尾tail为null时，把该node入队
-  enq(node);
-  return node;
-}
-</code></pre></li>
+<li>AbstractQueuedSynchronizer的acquire方法</li>
 </ul>
-<p>private Node enq(final Node node) {<br>    // 自旋方式保证加入到队尾<br>    for (;;) {<br>        Node t = tail;<br>        if (t == null) {<br>            //tail为null时，初始化head和tail<br>            if (compareAndSetHead(new Node()))<br>                tail = head;<br>        } else {<br>            //cas设置tail<br>            node.prev = t;<br>            if (compareAndSetTail(t, node)) {<br>                t.next = node;<br>                return t;<br>            }<br>        }<br>    }<br>}</p>
-<pre><code>- *3 AbstractQueuedSynchronizer的acquireQueued方法</code></pre><p>final boolean acquireQueued(final Node node, int arg) {<br>    boolean failed = true;<br>    try {<br>        boolean interrupted = false;<br>        for (;;) {<br>            //获取该node的前继节点<br>            final Node p = node.predecessor();<br>            //前继节点是head且能以独占方式获取成功，则把node设置为head，返回<br>            if (p == head &amp;&amp; tryAcquire(arg)) {<br>                setHead(node);<br>                p.next = null; // help GC<br>                failed = false;<br>                return interrupted;<br>            }<br>            //失败则检查是否需要挂起（下面的*4）<br>            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp;<br>                //需要挂起的话，则执行挂起动作<br>                parkAndCheckInterrupt())<br>                interrupted = true;<br>        }<br>    } finally {<br>        if (failed)<br>            //如果acquire失败了，则去掉acquire<br>            cancelAcquire(node);<br>    }<br>}</p>
-<pre><code>- *4 AbstractQueuedSynchronizer的shouldParkAfterFailedAcquire方法</code></pre><p>private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {<br>    int ws = pred.waitStatus;<br>    //SIGNAL表示该node的后继者的线程需要唤醒<br>    if (ws == Node.SIGNAL)<br>        //pred是SIGNAL状态时，说明node是需要阻塞挂起的<br>        return true;<br>    if (ws &gt; 0) {<br>        //状态&gt;0表示CANCELLED，是说线程已被取消<br>        //因此需要一直往前找节点，知道节点的waitStatus不大于0<br>        do {<br>            node.prev = pred = pred.prev;<br>        } while (pred.waitStatus &gt; 0);<br>        pred.next = node;<br>    } else {<br>        //如果前继节点不是CANCELLED，也不是SIGNAL状态，则把它的状态设置为SIGNAL<br>        compareAndSetWaitStatus(pred, ws, Node.SIGNAL);<br>    }<br>    return false;<br>}</p>
-<p>private final boolean parkAndCheckInterrupt() {<br>    //挂起当前线程<br>    LockSupport.park(this);<br>    //返回是否被打断<br>    return Thread.interrupted();<br>}</p>
-<pre><code>
-### 公平锁
-- 与非公平锁的差别在于tryAcquire方法的不同</code></pre><p>protected final boolean tryAcquire(int acquires) {<br>    final Thread current = Thread.currentThread();<br>    int c = getState();<br>    if (c == 0) {<br>        //如果state=0的话，首先要判断是不是有等待获取锁的节点<br>        //如果没有的话，则try成功<br>        //如果有的话，返回try失败<br>        if (!hasQueuedPredecessors() &amp;&amp;<br>            compareAndSetState(0, acquires)) {<br>            setExclusiveOwnerThread(current);<br>            return true;<br>        }<br>    }<br>    //如果独占线程就是当前线程，则可以直接try成功<br>    else if (current == getExclusiveOwnerThread()) {<br>        int nextc = c + acquires;<br>        if (nextc &lt; 0)<br>            throw new Error(“Maximum lock count exceeded”);<br>        setState(nextc);<br>        return true;<br>    }<br>    return false;<br>}</p>
-<p>// 如果有排队的线程早于当前线程，则返回true<br>// 如果当前线程在队列的head处，或者队列是空的，则返回false<br>public final boolean hasQueuedPredecessors() {<br>    Node t = tail;<br>    Node h = head;<br>    Node s;<br>    return h != t &amp;&amp;<br>        ((s = h.next) == null || s.thread != Thread.currentThread());<br>}</p>
-<pre><code>
-&gt; ## tryLock
-使用了Sync的nonfairTryAcquire方法，代码解析同上面 *1 
+<pre><code>public final void acquire(int arg) {
+    //子类实现tryAcquire方法，tryAcquire调用了NonfairSync的父类Sync的nonfairTryAcquire方法（下面的 *1）
+    if (!tryAcquire(arg) &amp;&amp;
+        // 如果tryAcquire失败，则不间断的去获取排队的线程（下面的 *2和 *3）
+        acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+        selfInterrupt();
+}</code></pre><ul>
+<li>*1 Sync的nonfairTryAcquire方法</li>
+</ul>
+<pre><code>/**
+ * 先判断state=0的话，直接cas设置state，成功则设置独占线程为当前线程
+ * state!=0的话，如果独占线程为当前线程，则state+1，返回true
+ * 否则返回false
+ */
+final boolean nonfairTryAcquire(int acquires) {
+    final Thread current = Thread.currentThread();
+    int c = getState();
+    if (c == 0) {
+        if (compareAndSetState(0, acquires)) {
+            setExclusiveOwnerThread(current);
+            return true;
+        }
+    }
+    else if (current == getExclusiveOwnerThread()) {
+        int nextc = c + acquires;
+        if (nextc &lt; 0) // overflow
+            throw new Error(&quot;Maximum lock count exceeded&quot;);
+        setState(nextc);
+        return true;
+    }
+    return false;
+}</code></pre><ul>
+<li>*2 AbstractQueuedSynchronizer的addWaiter方法</li>
+</ul>
+<pre><code>private Node addWaiter(Node mode) {
+    Node node = new Node(Thread.currentThread(), mode);
+    //如果队尾tail不为空，则把该node置为队尾
+    Node pred = tail;
+    if (pred != null) {
+        node.prev = pred;
+        if (compareAndSetTail(pred, node)) {
+            pred.next = node;
+            return node;
+        }
+    }
+    // 队尾tail为null时，把该node入队
+    enq(node);
+    return node;
+}
 
-&gt; ## unlock</code></pre><p>public void unlock() {<br>    sync.release(1);<br>}</p>
-<p>// AQS的release方法<br>public final boolean release(int arg) {<br>    //子类Sync的tryRelease（下面的 *1 ）<br>    if (tryRelease(arg)) {<br>        Node h = head;<br>        if (h != null &amp;&amp; h.waitStatus != 0)<br>            //tryRelease成功则唤醒下一个节点（下面的 *2 ）<br>            unparkSuccessor(h);<br>        return true;<br>    }<br>    return false;<br>}</p>
-<pre><code>
-- *1 Sync的tryRelease方法</code></pre><p>protected final boolean tryRelease(int releases) {<br>    int c = getState() - releases;<br>    //只能持有锁的才能释放锁<br>    if (Thread.currentThread() != getExclusiveOwnerThread())<br>        throw new IllegalMonitorStateException();<br>    boolean free = false;<br>    //c=0是指所有的锁都释放了，自然要把独占线程置为null<br>    if (c == 0) {<br>        free = true;<br>        setExclusiveOwnerThread(null);<br>    }<br>    setState(c);<br>    return free;<br>}</p>
-<pre><code>
-- *2 AQS的unparkSuccessor方法</code></pre><p>private void unparkSuccessor(Node node) {<br>    int ws = node.waitStatus;<br>    if (ws &lt; 0)<br>        compareAndSetWaitStatus(node, ws, 0);<br>    //通常是head的下一个节点，如果head的下一个节点是null或者状态是CANCELLED，<br>    //那么就要从tail一直往前找不是CANCELLED的节点<br>    Node s = node.next;<br>    if (s == null || s.waitStatus &gt; 0) {<br>        s = null;<br>        for (Node t = tail; t != null &amp;&amp; t != node; t = t.prev)<br>            if (t.waitStatus &lt;= 0)<br>                s = t;<br>    }<br>    //唤醒这个节点<br>    if (s != null)<br>        LockSupport.unpark(s.thread);<br>}</p>
-<pre><code></code></pre>
+private Node enq(final Node node) {
+    // 自旋方式保证加入到队尾
+    for (;;) {
+        Node t = tail;
+        if (t == null) {
+            //tail为null时，初始化head和tail
+            if (compareAndSetHead(new Node()))
+                tail = head;
+        } else {
+            //cas设置tail
+            node.prev = t;
+            if (compareAndSetTail(t, node)) {
+                t.next = node;
+                return t;
+            }
+        }
+    }
+}</code></pre><ul>
+<li>*3 AbstractQueuedSynchronizer的acquireQueued方法</li>
+</ul>
+<pre><code>final boolean acquireQueued(final Node node, int arg) {
+    boolean failed = true;
+    try {
+        boolean interrupted = false;
+        for (;;) {
+            //获取该node的前继节点
+            final Node p = node.predecessor();
+            //前继节点是head且能以独占方式获取成功，则把node设置为head，返回
+            if (p == head &amp;&amp; tryAcquire(arg)) {
+                setHead(node);
+                p.next = null; // help GC
+                failed = false;
+                return interrupted;
+            }
+            //失败则检查是否需要挂起（下面的*4）
+            if (shouldParkAfterFailedAcquire(p, node) &amp;&amp;
+                //需要挂起的话，则执行挂起动作
+                parkAndCheckInterrupt())
+                interrupted = true;
+        }
+    } finally {
+        if (failed)
+            //如果acquire失败了，则去掉acquire
+            cancelAcquire(node);
+    }
+}</code></pre><ul>
+<li>*4 AbstractQueuedSynchronizer的shouldParkAfterFailedAcquire方法</li>
+</ul>
+<pre><code>private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
+    int ws = pred.waitStatus;
+    //SIGNAL表示该node的后继者的线程需要唤醒
+    if (ws == Node.SIGNAL)
+        //pred是SIGNAL状态时，说明node是需要阻塞挂起的
+        return true;
+    if (ws &gt; 0) {
+        //状态&gt;0表示CANCELLED，是说线程已被取消
+        //因此需要一直往前找节点，知道节点的waitStatus不大于0
+        do {
+            node.prev = pred = pred.prev;
+        } while (pred.waitStatus &gt; 0);
+        pred.next = node;
+    } else {
+        //如果前继节点不是CANCELLED，也不是SIGNAL状态，则把它的状态设置为SIGNAL
+        compareAndSetWaitStatus(pred, ws, Node.SIGNAL);
+    }
+    return false;
+}
+
+private final boolean parkAndCheckInterrupt() {
+    //挂起当前线程
+    LockSupport.park(this);
+    //返回是否被打断
+    return Thread.interrupted();
+}</code></pre><h3 id="公平锁"><a href="#公平锁" class="headerlink" title="公平锁"></a>公平锁</h3><ul>
+<li>与非公平锁的差别在于tryAcquire方法的不同</li>
+</ul>
+<pre><code>protected final boolean tryAcquire(int acquires) {
+    final Thread current = Thread.currentThread();
+    int c = getState();
+    if (c == 0) {
+        //如果state=0的话，首先要判断是不是有等待获取锁的节点
+        //如果没有的话，则try成功
+        //如果有的话，返回try失败
+        if (!hasQueuedPredecessors() &amp;&amp;
+            compareAndSetState(0, acquires)) {
+            setExclusiveOwnerThread(current);
+            return true;
+        }
+    }
+    //如果独占线程就是当前线程，则可以直接try成功
+    else if (current == getExclusiveOwnerThread()) {
+        int nextc = c + acquires;
+        if (nextc &lt; 0)
+            throw new Error(&quot;Maximum lock count exceeded&quot;);
+        setState(nextc);
+        return true;
+    }
+    return false;
+}
+
+// 如果有排队的线程早于当前线程，则返回true
+// 如果当前线程在队列的head处，或者队列是空的，则返回false
+public final boolean hasQueuedPredecessors() {
+    Node t = tail;
+    Node h = head;
+    Node s;
+    return h != t &amp;&amp;
+        ((s = h.next) == null || s.thread != Thread.currentThread());
+}</code></pre><blockquote>
+<h2 id="tryLock"><a href="#tryLock" class="headerlink" title="tryLock"></a>tryLock</h2></blockquote>
+<p>使用了Sync的nonfairTryAcquire方法，代码解析同上面 *1 </p>
+<blockquote>
+<h2 id="unlock"><a href="#unlock" class="headerlink" title="unlock"></a>unlock</h2></blockquote>
+<pre><code>public void unlock() {
+    sync.release(1);
+}
+
+// AQS的release方法
+public final boolean release(int arg) {
+    //子类Sync的tryRelease（下面的 *1 ）
+    if (tryRelease(arg)) {
+        Node h = head;
+        if (h != null &amp;&amp; h.waitStatus != 0)
+            //tryRelease成功则唤醒下一个节点（下面的 *2 ）
+            unparkSuccessor(h);
+        return true;
+    }
+    return false;
+}</code></pre><ul>
+<li>*1 Sync的tryRelease方法</li>
+</ul>
+<pre><code>protected final boolean tryRelease(int releases) {
+    int c = getState() - releases;
+    //只能持有锁的才能释放锁
+    if (Thread.currentThread() != getExclusiveOwnerThread())
+        throw new IllegalMonitorStateException();
+    boolean free = false;
+    //c=0是指所有的锁都释放了，自然要把独占线程置为null
+    if (c == 0) {
+        free = true;
+        setExclusiveOwnerThread(null);
+    }
+    setState(c);
+    return free;
+}</code></pre><ul>
+<li>*2 AQS的unparkSuccessor方法</li>
+</ul>
+<pre><code>private void unparkSuccessor(Node node) {
+    int ws = node.waitStatus;
+    if (ws &lt; 0)
+        compareAndSetWaitStatus(node, ws, 0);
+    //通常是head的下一个节点，如果head的下一个节点是null或者状态是CANCELLED，
+    //那么就要从tail一直往前找不是CANCELLED的节点
+    Node s = node.next;
+    if (s == null || s.waitStatus &gt; 0) {
+        s = null;
+        for (Node t = tail; t != null &amp;&amp; t != node; t = t.prev)
+            if (t.waitStatus &lt;= 0)
+                s = t;
+    }
+    //唤醒这个节点
+    if (s != null)
+        LockSupport.unpark(s.thread);
+}</code></pre>
             </div>
             <hr/>
 
@@ -669,12 +818,11 @@ final boolean nonfairTryAcquire(int acquires) {
                 <div class="card-content article-content">
                     <div class="summary">
 Lock
-
-例子class X {
+class X {
     private final Lock lock = new ReentrantLock();
     public void lock() {
         lock.lock();
-    </div>
+       </div>
                     <div class="publish-info">
                             <span class="publish-date">
                                 <i class="fa fa-clock-o fa-fw icon-date"></i>2019-11-05
