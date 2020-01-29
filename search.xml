@@ -81,31 +81,6 @@
     
     
     <entry>
-      <title>对于所有对象都通用的方法</title>
-      <link href="/2019/07/18/book/effective-java/3.%E5%AF%B9%E4%BA%8E%E6%89%80%E6%9C%89%E5%AF%B9%E8%B1%A1%E9%83%BD%E9%80%9A%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/"/>
-      <url>/2019/07/18/book/effective-java/3.%E5%AF%B9%E4%BA%8E%E6%89%80%E6%9C%89%E5%AF%B9%E8%B1%A1%E9%83%BD%E9%80%9A%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/</url>
-      
-        <content type="html"><![CDATA[<h1 id="第三章-对于所有对象都通用的方法"><a href="#第三章-对于所有对象都通用的方法" class="headerlink" title="第三章 对于所有对象都通用的方法"></a>第三章 对于所有对象都通用的方法</h1><h2 id="8-实现高质量equals方法的诀窍"><a href="#8-实现高质量equals方法的诀窍" class="headerlink" title="8. 实现高质量equals方法的诀窍"></a>8. 实现高质量equals方法的诀窍</h2><ol><li>使用==操作符检查“参数是否为这个对象的引用”，如果是，返回true；</li><li>使用instanceof操作符检查“参数是否为正确类型”，所谓正确类型，是指equals所在的类，有些情况下是指该类实现的某个接口；</li><li>把参数转换成正确类型，因为转换之前进行过instanceof的测试，所以会确保成功；</li><li>对于该类中的每个“关键”域，检查参数中的域是否与该对象对应的域相匹配；为了获得最佳的性能，应该优先比较最可能不一致的域；</li><li>编写完的equals方法要保证：对称性、一致性、传递性；</li><li>覆盖equals时总要覆盖hashCode</li><li>不要将equals方法中的Object对象替换为其他类型的对象；</li></ol><h2 id="9-覆盖equals时总要覆盖hashCode"><a href="#9-覆盖equals时总要覆盖hashCode" class="headerlink" title="9. 覆盖equals时总要覆盖hashCode"></a>9. 覆盖equals时总要覆盖hashCode</h2><ol><li>equals相同，hashcode一定相同；</li><li>equals不同，hashcode不一定不同；</li><li>一个好的散列函数通常倾向于“为不相等的对象产生不相等的散列码”；</li></ol><h2 id="10-始终要覆盖toString"><a href="#10-始终要覆盖toString" class="headerlink" title="10. 始终要覆盖toString"></a>10. 始终要覆盖toString</h2><h2 id="11-谨慎的覆盖clone"><a href="#11-谨慎的覆盖clone" class="headerlink" title="11. 谨慎的覆盖clone"></a>11. 谨慎的覆盖clone</h2><blockquote><p>尤其是对象的属性是引用类型的，需要手动来深度拷贝</p></blockquote><h2 id="12-考虑实现comparable接口"><a href="#12-考虑实现comparable接口" class="headerlink" title="12. 考虑实现comparable接口"></a>12. 考虑实现comparable接口</h2>]]></content>
-      
-      
-      <categories>
-          
-          <category> 读书 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> effective java </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>创建和销毁对象</title>
       <link href="/2019/07/18/book/effective-java/2.%E5%88%9B%E5%BB%BA%E5%92%8C%E9%94%80%E6%AF%81%E5%AF%B9%E8%B1%A1/"/>
       <url>/2019/07/18/book/effective-java/2.%E5%88%9B%E5%BB%BA%E5%92%8C%E9%94%80%E6%AF%81%E5%AF%B9%E8%B1%A1/</url>
@@ -131,11 +106,36 @@
     
     
     <entry>
-      <title>类和接口</title>
-      <link href="/2019/07/18/book/effective-java/4.%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/"/>
-      <url>/2019/07/18/book/effective-java/4.%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/</url>
+      <title>对于所有对象都通用的方法</title>
+      <link href="/2019/07/18/book/effective-java/3.%E5%AF%B9%E4%BA%8E%E6%89%80%E6%9C%89%E5%AF%B9%E8%B1%A1%E9%83%BD%E9%80%9A%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/"/>
+      <url>/2019/07/18/book/effective-java/3.%E5%AF%B9%E4%BA%8E%E6%89%80%E6%9C%89%E5%AF%B9%E8%B1%A1%E9%83%BD%E9%80%9A%E7%94%A8%E7%9A%84%E6%96%B9%E6%B3%95/</url>
       
-        <content type="html"><![CDATA[<h1 id="第四章-类和接口"><a href="#第四章-类和接口" class="headerlink" title="第四章 类和接口"></a>第四章 类和接口</h1><h2 id="13-使类和成员的可访性最小化"><a href="#13-使类和成员的可访性最小化" class="headerlink" title="13. 使类和成员的可访性最小化"></a>13. 使类和成员的可访性最小化</h2><ul><li>封装：降低耦合，提高重用性</li><li>实例域决不能是公有的</li><li>公有类不应该包含公有域（除非公有静态final域），要确保公有静态final域所引用的对象都是不可变的</li></ul><h2 id="14-在公有类中使用访问方法而非公有域"><a href="#14-在公有类中使用访问方法而非公有域" class="headerlink" title="14. 在公有类中使用访问方法而非公有域"></a>14. 在公有类中使用访问方法而非公有域</h2><h2 id="15-使可变性最小化"><a href="#15-使可变性最小化" class="headerlink" title="15. 使可变性最小化"></a>15. 使可变性最小化</h2><blockquote><h4 id="使类成为不可变，需要遵循下面五条规则："><a href="#使类成为不可变，需要遵循下面五条规则：" class="headerlink" title="使类成为不可变，需要遵循下面五条规则："></a>使类成为不可变，需要遵循下面五条规则：</h4></blockquote><ol><li>不要提供任何会修改对象状态的方法</li><li>保证类不会被扩展，一般让类成为final</li><li>所有的域都是final的</li><li>所有的域都是私有的</li><li>确保对任何组件的互斥访问</li></ol><h2 id="16-组合优于继承"><a href="#16-组合优于继承" class="headerlink" title="16. 组合优于继承"></a>16. 组合优于继承</h2><ul><li>继承违背了封装的原则</li><li>使用继承要考虑子类是否和超类存在子类型的关系</li></ul><h2 id="17-要么为继承而设计，并提供文档说明，要么就禁止继承"><a href="#17-要么为继承而设计，并提供文档说明，要么就禁止继承" class="headerlink" title="17. 要么为继承而设计，并提供文档说明，要么就禁止继承"></a>17. 要么为继承而设计，并提供文档说明，要么就禁止继承</h2><h2 id="18-接口由于抽象类"><a href="#18-接口由于抽象类" class="headerlink" title="18.接口由于抽象类"></a>18.接口由于抽象类</h2><blockquote><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3></blockquote><ul><li>抽象类允许包含某些方法的实现，在java8之后接口也允许了默认方法和静态方法</li><li>抽象类是单继承，接口是多实现</li><li>现有的类可以很容易被更新，以实现新的接口</li><li>接口是定义混合类型的理想选择</li><li>接口允许我们构造非层次结构的类型框架</li></ul><h2 id="19-接口只用于定义类型，最好不要用来定义常量"><a href="#19-接口只用于定义类型，最好不要用来定义常量" class="headerlink" title="19. 接口只用于定义类型，最好不要用来定义常量"></a>19. 接口只用于定义类型，最好不要用来定义常量</h2><h2 id="20"><a href="#20" class="headerlink" title="20."></a>20.</h2><blockquote><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></blockquote><ul><li>充斥着样板代码，破坏了可读性</li><li>标签类过于冗长、容易出错、效率低下</li></ul><blockquote><h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3></blockquote><ul><li>子类型化能更好的表示多种风格对象的单个数据类型<ol><li>子类型化能更好的表示多种风格对象的单个数据类型</li><li>在子类中定义属于该类的数据域</li></ol></li><li>类层次还有一个好处，增强灵活性，方便编译时类型检查。类层次能够很好的反映类型之间本质上的层次关系</li></ul><h2 id="21-用函数对象表示策略"><a href="#21-用函数对象表示策略" class="headerlink" title="21. 用函数对象表示策略"></a>21. 用函数对象表示策略</h2><ol><li><p>函数指针的主要用途就是实现策略（Strategy）模式。</p></li><li><p>为了在Java中实现这种模式，要声明一个接口来表示该策略，并且为每个具体策略声明一个实现了该接口的类。</p></li><li><p>当一个具体策略只被使用一次时，通常使用匿名类来声明和实例化这个具体策略类。</p></li><li><p>当一个具体策略是设计用来重复使用的时候，它的类通常就要被实现为私有的静态成员类，并通过公有的静态final域被导出，其类型为该策略接口</p></li><li><p>java8的lambda表达式，函数式编程也是属于这个范畴</p></li></ol><h2 id="22-优先考虑静态成员类"><a href="#22-优先考虑静态成员类" class="headerlink" title="22. 优先考虑静态成员类"></a>22. 优先考虑静态成员类</h2><blockquote><p>嵌套类</p></blockquote><p>指被定义在另一个类的内部的类。嵌套类存在的目的应该只是为他的外围类（enclosing class）提供服务。如果嵌套类将来可以回用于其他的某个环境中，他就应该是顶层类（top-level class）</p><blockquote><p>分类</p></blockquote><p>嵌套类分为四种：静态成员类（static member class）、非静态成员类（nonstatic member class）、匿名类（anonymous class）和局部类（local class）。<br>内部类：非静态成员类（nonstatic member class）、匿名类（anonymous class）和局部类（local class）</p><blockquote><p>静态成员类</p></blockquote><p>静态成员类是最简单的一种嵌套类。<br>最好把他看做是普通的类，只是碰巧被声明在另一个类的内部而已，他可以访问外围类的所有成员，包括声明为私有的成员。<br>静态内部类是外围类的一个静态成员，与其他的静态成员一样，也最受同样的可访问性规则。如果他被声明为私有的，他就只能在外围类的内部才可以被访问，等等。</p><ul><li>注意：如果一个类要被声明为static的，只有一种情况，就是静态内部类。如果在外部类声明为static，程序会编译都不会过。</li></ul><blockquote><p>非静态成员类</p></blockquote><p>从语法上讲，静态成员类和非静态成员类之间唯一的区别是：静态成员类的声明中包含修饰符static。尽管他们语法非常相似，但是这两种嵌套类有很大的不同。<br>非静态成员类的每个实例都隐含着与外围类的一个外围实例（enclosing instance）想关联。在非静态成员类的实例方法内部，可以调用外围实例上的方法，或者利用修饰过的this构造获得外围实例的引用。如果嵌套类的实例可以在他外围实例的情况下，要想创建非静态成原来的实例是不可能的</p><blockquote><p>匿名类</p></blockquote><ol><li>第一种常见用法就是动态的创建函数对象（function object）</li><li>第二种常见的用法是创建过程对象（process object），比如Runnable、Thread或者TimerTask实例。</li><li>第三种常见的用法是在静态工厂内部</li></ol><blockquote><p>局部类</p></blockquote><p>局部类是四种嵌套类中用的最少的类。在任何“可以声明局部变量”的地方，都可以声明局部类，并且局部类也遵守同样的作用域规则。局部类与其他三种嵌套类中的每一种都有一些共同的属性。与成员类一样，局部类有名字，可以被重复使用。与匿名类一样，只有当局部类实在非静态环境中定义的时候，才有外围实例，它们也不能包含静态成员。与匿名类一样，它们必须简短以便不会影响到可读性</p><blockquote><p>使用总结</p></blockquote><ol><li>如果一个嵌套类需要在单个方法之外仍然可见的，或者它太长了，不适合于放在方法内部，就应该使用成员类。</li><li>如果成员类的每个示例都需要一个指向外围实例的引用，就要把成员类做成非静态的；否则，就做成静态的。</li><li>假设这个嵌套类属于一个方法的内部，如果你只需要在一个地方创建实例，并且已经有了一个预置的类型可以说明这个类的特征，就要把它做成匿名类；否则，就做成局部类</li></ol>]]></content>
+        <content type="html"><![CDATA[<h1 id="第三章-对于所有对象都通用的方法"><a href="#第三章-对于所有对象都通用的方法" class="headerlink" title="第三章 对于所有对象都通用的方法"></a>第三章 对于所有对象都通用的方法</h1><h2 id="8-实现高质量equals方法的诀窍"><a href="#8-实现高质量equals方法的诀窍" class="headerlink" title="8. 实现高质量equals方法的诀窍"></a>8. 实现高质量equals方法的诀窍</h2><ol><li>使用==操作符检查“参数是否为这个对象的引用”，如果是，返回true；</li><li>使用instanceof操作符检查“参数是否为正确类型”，所谓正确类型，是指equals所在的类，有些情况下是指该类实现的某个接口；</li><li>把参数转换成正确类型，因为转换之前进行过instanceof的测试，所以会确保成功；</li><li>对于该类中的每个“关键”域，检查参数中的域是否与该对象对应的域相匹配；为了获得最佳的性能，应该优先比较最可能不一致的域；</li><li>编写完的equals方法要保证：对称性、一致性、传递性；</li><li>覆盖equals时总要覆盖hashCode</li><li>不要将equals方法中的Object对象替换为其他类型的对象；</li></ol><h2 id="9-覆盖equals时总要覆盖hashCode"><a href="#9-覆盖equals时总要覆盖hashCode" class="headerlink" title="9. 覆盖equals时总要覆盖hashCode"></a>9. 覆盖equals时总要覆盖hashCode</h2><ol><li>equals相同，hashcode一定相同；</li><li>equals不同，hashcode不一定不同；</li><li>一个好的散列函数通常倾向于“为不相等的对象产生不相等的散列码”；</li></ol><h2 id="10-始终要覆盖toString"><a href="#10-始终要覆盖toString" class="headerlink" title="10. 始终要覆盖toString"></a>10. 始终要覆盖toString</h2><h2 id="11-谨慎的覆盖clone"><a href="#11-谨慎的覆盖clone" class="headerlink" title="11. 谨慎的覆盖clone"></a>11. 谨慎的覆盖clone</h2><blockquote><p>尤其是对象的属性是引用类型的，需要手动来深度拷贝</p></blockquote><h2 id="12-考虑实现comparable接口"><a href="#12-考虑实现comparable接口" class="headerlink" title="12. 考虑实现comparable接口"></a>12. 考虑实现comparable接口</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> effective java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>泛型</title>
+      <link href="/2019/07/18/book/effective-java/5.%E6%B3%9B%E5%9E%8B/"/>
+      <url>/2019/07/18/book/effective-java/5.%E6%B3%9B%E5%9E%8B/</url>
+      
+        <content type="html"><![CDATA[<h1 id="第五章-泛型"><a href="#第五章-泛型" class="headerlink" title="第五章 泛型"></a>第五章 泛型</h1><h2 id="23-不要使用原生态类型，要使用泛型"><a href="#23-不要使用原生态类型，要使用泛型" class="headerlink" title="23. 不要使用原生态类型，要使用泛型"></a>23. 不要使用原生态类型，要使用泛型</h2><h2 id="24-消除非受检警告"><a href="#24-消除非受检警告" class="headerlink" title="24. 消除非受检警告"></a>24. 消除非受检警告</h2><p>@SuperWarnings(“unchecked”)要尽可能小的范围</p><h2 id="25-列表优于数组"><a href="#25-列表优于数组" class="headerlink" title="25. 列表优于数组"></a>25. 列表优于数组</h2><h2 id="26-优先考虑泛型"><a href="#26-优先考虑泛型" class="headerlink" title="26. 优先考虑泛型"></a>26. 优先考虑泛型</h2><h2 id="27-优先考虑泛型方法"><a href="#27-优先考虑泛型方法" class="headerlink" title="27. 优先考虑泛型方法"></a>27. 优先考虑泛型方法</h2><h2 id="28-利用有限制通配符来提升api的灵活性"><a href="#28-利用有限制通配符来提升api的灵活性" class="headerlink" title="28. 利用有限制通配符来提升api的灵活性"></a>28. 利用有限制通配符来提升api的灵活性</h2><h2 id="29-优先考虑类型安全的异构容器"><a href="#29-优先考虑类型安全的异构容器" class="headerlink" title="29. 优先考虑类型安全的异构容器"></a>29. 优先考虑类型安全的异构容器</h2>]]></content>
       
       
       <categories>
@@ -181,11 +181,11 @@
     
     
     <entry>
-      <title>枚举和注解</title>
-      <link href="/2019/07/18/book/effective-java/6.%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/"/>
-      <url>/2019/07/18/book/effective-java/6.%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/</url>
+      <title>类和接口</title>
+      <link href="/2019/07/18/book/effective-java/4.%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/"/>
+      <url>/2019/07/18/book/effective-java/4.%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3/</url>
       
-        <content type="html"><![CDATA[<h1 id="第六章-枚举和注解"><a href="#第六章-枚举和注解" class="headerlink" title="第六章 枚举和注解"></a>第六章 枚举和注解</h1><h2 id="30-用enum代替int常量"><a href="#30-用enum代替int常量" class="headerlink" title="30. 用enum代替int常量"></a>30. 用enum代替int常量</h2><h2 id="31-用实例域代替序数"><a href="#31-用实例域代替序数" class="headerlink" title="31. 用实例域代替序数"></a>31. 用实例域代替序数</h2><h2 id="32-用EnumSet代替位域"><a href="#32-用EnumSet代替位域" class="headerlink" title="32. 用EnumSet代替位域"></a>32. 用EnumSet代替位域</h2><ul><li>EnumSet是线程不安全的，需要借助Collections.synchronizedSet</li></ul><pre class=" language-java"><code class="language-java">Set<span class="token operator">&lt;</span>MyEnum<span class="token operator">></span> s <span class="token operator">=</span> Collections<span class="token punctuation">.</span><span class="token function">synchronizedSet</span><span class="token punctuation">(</span>EnumSet<span class="token punctuation">.</span><span class="token function">noneOf</span><span class="token punctuation">(</span>MyEnum<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><h2 id="33-用EnumMap代替序数索引"><a href="#33-用EnumMap代替序数索引" class="headerlink" title="33. 用EnumMap代替序数索引"></a>33. 用EnumMap代替序数索引</h2><h2 id="34-用接口模拟可伸缩的枚举"><a href="#34-用接口模拟可伸缩的枚举" class="headerlink" title="34. 用接口模拟可伸缩的枚举"></a>34. 用接口模拟可伸缩的枚举</h2><h2 id="35-注解优于命名模式"><a href="#35-注解优于命名模式" class="headerlink" title="35. 注解优于命名模式"></a>35. 注解优于命名模式</h2><h2 id="36-坚持使用Override注解"><a href="#36-坚持使用Override注解" class="headerlink" title="36. 坚持使用Override注解"></a>36. 坚持使用Override注解</h2><h2 id="37-用标记接口定义类型"><a href="#37-用标记接口定义类型" class="headerlink" title="37. 用标记接口定义类型"></a>37. 用标记接口定义类型</h2><ul><li>标记接口是没有包含方法声明的接口，而只是标明一个类实现了具有某种属性的接口</li></ul>]]></content>
+        <content type="html"><![CDATA[<h1 id="第四章-类和接口"><a href="#第四章-类和接口" class="headerlink" title="第四章 类和接口"></a>第四章 类和接口</h1><h2 id="13-使类和成员的可访性最小化"><a href="#13-使类和成员的可访性最小化" class="headerlink" title="13. 使类和成员的可访性最小化"></a>13. 使类和成员的可访性最小化</h2><ul><li>封装：降低耦合，提高重用性</li><li>实例域决不能是公有的</li><li>公有类不应该包含公有域（除非公有静态final域），要确保公有静态final域所引用的对象都是不可变的</li></ul><h2 id="14-在公有类中使用访问方法而非公有域"><a href="#14-在公有类中使用访问方法而非公有域" class="headerlink" title="14. 在公有类中使用访问方法而非公有域"></a>14. 在公有类中使用访问方法而非公有域</h2><h2 id="15-使可变性最小化"><a href="#15-使可变性最小化" class="headerlink" title="15. 使可变性最小化"></a>15. 使可变性最小化</h2><blockquote><h4 id="使类成为不可变，需要遵循下面五条规则："><a href="#使类成为不可变，需要遵循下面五条规则：" class="headerlink" title="使类成为不可变，需要遵循下面五条规则："></a>使类成为不可变，需要遵循下面五条规则：</h4></blockquote><ol><li>不要提供任何会修改对象状态的方法</li><li>保证类不会被扩展，一般让类成为final</li><li>所有的域都是final的</li><li>所有的域都是私有的</li><li>确保对任何组件的互斥访问</li></ol><h2 id="16-组合优于继承"><a href="#16-组合优于继承" class="headerlink" title="16. 组合优于继承"></a>16. 组合优于继承</h2><ul><li>继承违背了封装的原则</li><li>使用继承要考虑子类是否和超类存在子类型的关系</li></ul><h2 id="17-要么为继承而设计，并提供文档说明，要么就禁止继承"><a href="#17-要么为继承而设计，并提供文档说明，要么就禁止继承" class="headerlink" title="17. 要么为继承而设计，并提供文档说明，要么就禁止继承"></a>17. 要么为继承而设计，并提供文档说明，要么就禁止继承</h2><h2 id="18-接口由于抽象类"><a href="#18-接口由于抽象类" class="headerlink" title="18.接口由于抽象类"></a>18.接口由于抽象类</h2><blockquote><h3 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h3></blockquote><ul><li>抽象类允许包含某些方法的实现，在java8之后接口也允许了默认方法和静态方法</li><li>抽象类是单继承，接口是多实现</li><li>现有的类可以很容易被更新，以实现新的接口</li><li>接口是定义混合类型的理想选择</li><li>接口允许我们构造非层次结构的类型框架</li></ul><h2 id="19-接口只用于定义类型，最好不要用来定义常量"><a href="#19-接口只用于定义类型，最好不要用来定义常量" class="headerlink" title="19. 接口只用于定义类型，最好不要用来定义常量"></a>19. 接口只用于定义类型，最好不要用来定义常量</h2><h2 id="20"><a href="#20" class="headerlink" title="20."></a>20.</h2><blockquote><h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3></blockquote><ul><li>充斥着样板代码，破坏了可读性</li><li>标签类过于冗长、容易出错、效率低下</li></ul><blockquote><h3 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h3></blockquote><ul><li>子类型化能更好的表示多种风格对象的单个数据类型<ol><li>子类型化能更好的表示多种风格对象的单个数据类型</li><li>在子类中定义属于该类的数据域</li></ol></li><li>类层次还有一个好处，增强灵活性，方便编译时类型检查。类层次能够很好的反映类型之间本质上的层次关系</li></ul><h2 id="21-用函数对象表示策略"><a href="#21-用函数对象表示策略" class="headerlink" title="21. 用函数对象表示策略"></a>21. 用函数对象表示策略</h2><ol><li><p>函数指针的主要用途就是实现策略（Strategy）模式。</p></li><li><p>为了在Java中实现这种模式，要声明一个接口来表示该策略，并且为每个具体策略声明一个实现了该接口的类。</p></li><li><p>当一个具体策略只被使用一次时，通常使用匿名类来声明和实例化这个具体策略类。</p></li><li><p>当一个具体策略是设计用来重复使用的时候，它的类通常就要被实现为私有的静态成员类，并通过公有的静态final域被导出，其类型为该策略接口</p></li><li><p>java8的lambda表达式，函数式编程也是属于这个范畴</p></li></ol><h2 id="22-优先考虑静态成员类"><a href="#22-优先考虑静态成员类" class="headerlink" title="22. 优先考虑静态成员类"></a>22. 优先考虑静态成员类</h2><blockquote><p>嵌套类</p></blockquote><p>指被定义在另一个类的内部的类。嵌套类存在的目的应该只是为他的外围类（enclosing class）提供服务。如果嵌套类将来可以回用于其他的某个环境中，他就应该是顶层类（top-level class）</p><blockquote><p>分类</p></blockquote><p>嵌套类分为四种：静态成员类（static member class）、非静态成员类（nonstatic member class）、匿名类（anonymous class）和局部类（local class）。<br>内部类：非静态成员类（nonstatic member class）、匿名类（anonymous class）和局部类（local class）</p><blockquote><p>静态成员类</p></blockquote><p>静态成员类是最简单的一种嵌套类。<br>最好把他看做是普通的类，只是碰巧被声明在另一个类的内部而已，他可以访问外围类的所有成员，包括声明为私有的成员。<br>静态内部类是外围类的一个静态成员，与其他的静态成员一样，也最受同样的可访问性规则。如果他被声明为私有的，他就只能在外围类的内部才可以被访问，等等。</p><ul><li>注意：如果一个类要被声明为static的，只有一种情况，就是静态内部类。如果在外部类声明为static，程序会编译都不会过。</li></ul><blockquote><p>非静态成员类</p></blockquote><p>从语法上讲，静态成员类和非静态成员类之间唯一的区别是：静态成员类的声明中包含修饰符static。尽管他们语法非常相似，但是这两种嵌套类有很大的不同。<br>非静态成员类的每个实例都隐含着与外围类的一个外围实例（enclosing instance）想关联。在非静态成员类的实例方法内部，可以调用外围实例上的方法，或者利用修饰过的this构造获得外围实例的引用。如果嵌套类的实例可以在他外围实例的情况下，要想创建非静态成原来的实例是不可能的</p><blockquote><p>匿名类</p></blockquote><ol><li>第一种常见用法就是动态的创建函数对象（function object）</li><li>第二种常见的用法是创建过程对象（process object），比如Runnable、Thread或者TimerTask实例。</li><li>第三种常见的用法是在静态工厂内部</li></ol><blockquote><p>局部类</p></blockquote><p>局部类是四种嵌套类中用的最少的类。在任何“可以声明局部变量”的地方，都可以声明局部类，并且局部类也遵守同样的作用域规则。局部类与其他三种嵌套类中的每一种都有一些共同的属性。与成员类一样，局部类有名字，可以被重复使用。与匿名类一样，只有当局部类实在非静态环境中定义的时候，才有外围实例，它们也不能包含静态成员。与匿名类一样，它们必须简短以便不会影响到可读性</p><blockquote><p>使用总结</p></blockquote><ol><li>如果一个嵌套类需要在单个方法之外仍然可见的，或者它太长了，不适合于放在方法内部，就应该使用成员类。</li><li>如果成员类的每个示例都需要一个指向外围实例的引用，就要把成员类做成非静态的；否则，就做成静态的。</li><li>假设这个嵌套类属于一个方法的内部，如果你只需要在一个地方创建实例，并且已经有了一个预置的类型可以说明这个类的特征，就要把它做成匿名类；否则，就做成局部类</li></ol>]]></content>
       
       
       <categories>
@@ -231,31 +231,6 @@
     
     
     <entry>
-      <title>通用程序设计</title>
-      <link href="/2019/07/18/book/effective-java/8.%E9%80%9A%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
-      <url>/2019/07/18/book/effective-java/8.%E9%80%9A%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</url>
-      
-        <content type="html"><![CDATA[<h1 id="第八章-通用程序设计"><a href="#第八章-通用程序设计" class="headerlink" title="第八章 通用程序设计"></a>第八章 通用程序设计</h1><h2 id="45-将局部变量的作用域最小化"><a href="#45-将局部变量的作用域最小化" class="headerlink" title="45. 将局部变量的作用域最小化"></a>45. 将局部变量的作用域最小化</h2><ul><li>要使局部变量作用域最小化的最有力的方法就只在第一次使用它的地方声明</li><li>另一个有效方法是使方法小而集中</li></ul><h2 id="46-for-each循环优于传统的for循环"><a href="#46-for-each循环优于传统的for循环" class="headerlink" title="46. for-each循环优于传统的for循环"></a>46. for-each循环优于传统的for循环</h2><blockquote><p>有三种常见的情况无法使用for-each</p></blockquote><ol><li>过滤——如果需要遍历集合，并删除指定的元素，就需要使用显示的迭代器，以便可以调用它的remove方法</li><li>转换——如果需要遍历列表或数组，并取代它部分或全部的元素值，就需要列表迭代器或数组索引，以便设定元素的值</li><li>平行迭代——如果需要并行的遍历多个集合，就需要显示的控制迭代器或索引变量，以便所有迭代器或索引变量可以同步前移</li></ol><h2 id="47-了解和使用类库"><a href="#47-了解和使用类库" class="headerlink" title="47. 了解和使用类库"></a>47. 了解和使用类库</h2><h2 id="48-如果需要精确的答案，不要使用float和double"><a href="#48-如果需要精确的答案，不要使用float和double" class="headerlink" title="48. 如果需要精确的答案，不要使用float和double"></a>48. 如果需要精确的答案，不要使用float和double</h2><blockquote><p>使用bigdecimal、int、long进行货币运算</p></blockquote><ul><li>BigDecimal：法定的舍入行为、性能不是太好</li><li>int：自己需要记录十进制小数点，且数值范围没有超过9位十进制数字</li><li>long：不超过18位十进制数字</li><li>如果超过18位数字，就必须使用BigDecimal</li></ul><h2 id="49-基本类型优于装箱基本类型"><a href="#49-基本类型优于装箱基本类型" class="headerlink" title="49. 基本类型优于装箱基本类型"></a>49. 基本类型优于装箱基本类型</h2><h2 id="50-如果其他类型更合适，则尽量避免使用字符串"><a href="#50-如果其他类型更合适，则尽量避免使用字符串" class="headerlink" title="50. 如果其他类型更合适，则尽量避免使用字符串"></a>50. 如果其他类型更合适，则尽量避免使用字符串</h2><ul><li>字符串不适合代替其他的值类型</li><li>字符串不适合代替枚举类型</li><li>字符串不适合代替聚焦类型</li><li>字符串也不适合代替能力表(capabilities)</li></ul><h2 id="51-当心字符串连接的性能"><a href="#51-当心字符串连接的性能" class="headerlink" title="51. 当心字符串连接的性能"></a>51. 当心字符串连接的性能</h2><ul><li>多个字符串的拼接优先使用stringbuilder（java8中对string的拼接进行了优化，默认也是使用stringbuilder）</li></ul><h2 id="52-通过接口引用对象"><a href="#52-通过接口引用对象" class="headerlink" title="52. 通过接口引用对象"></a>52. 通过接口引用对象</h2><ul><li>如果有合适的接口类型存在，那么对于参数、返回值、变量和域来说，就都应该使用接口类型进行声明</li></ul><h2 id="53-接口优于反射机制"><a href="#53-接口优于反射机制" class="headerlink" title="53. 接口优于反射机制"></a>53. 接口优于反射机制</h2><ul><li>通常普通应用程序在运行时不应该以反射方式访问对象</li><li>如果你编写的程序必须要与编译时未知的类一起工作，如有可能，就应该仅仅使用反射机制来实例化对象，而访问对象时则使用编译时已知的某个接口或者超类</li></ul><h2 id="54-谨慎的使用本地方法"><a href="#54-谨慎的使用本地方法" class="headerlink" title="54. 谨慎的使用本地方法"></a>54. 谨慎的使用本地方法</h2><h2 id="55-谨慎的进行优化"><a href="#55-谨慎的进行优化" class="headerlink" title="55. 谨慎的进行优化"></a>55. 谨慎的进行优化</h2><h2 id="56-遵守普遍接受的命名规范"><a href="#56-遵守普遍接受的命名规范" class="headerlink" title="56. 遵守普遍接受的命名规范"></a>56. 遵守普遍接受的命名规范</h2><ul><li><a href="https://102.alibaba.com/downloadFile.do?file=1528269849853/Java_manual.pdf" target="_blank" rel="noopener">参考阿里巴巴命名规范</a></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> 读书 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> effective java </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>异常</title>
       <link href="/2019/07/18/book/effective-java/9.%E5%BC%82%E5%B8%B8/"/>
       <url>/2019/07/18/book/effective-java/9.%E5%BC%82%E5%B8%B8/</url>
@@ -281,11 +256,36 @@
     
     
     <entry>
-      <title>泛型</title>
-      <link href="/2019/07/18/book/effective-java/5.%E6%B3%9B%E5%9E%8B/"/>
-      <url>/2019/07/18/book/effective-java/5.%E6%B3%9B%E5%9E%8B/</url>
+      <title>通用程序设计</title>
+      <link href="/2019/07/18/book/effective-java/8.%E9%80%9A%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
+      <url>/2019/07/18/book/effective-java/8.%E9%80%9A%E7%94%A8%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/</url>
       
-        <content type="html"><![CDATA[<h1 id="第五章-泛型"><a href="#第五章-泛型" class="headerlink" title="第五章 泛型"></a>第五章 泛型</h1><h2 id="23-不要使用原生态类型，要使用泛型"><a href="#23-不要使用原生态类型，要使用泛型" class="headerlink" title="23. 不要使用原生态类型，要使用泛型"></a>23. 不要使用原生态类型，要使用泛型</h2><h2 id="24-消除非受检警告"><a href="#24-消除非受检警告" class="headerlink" title="24. 消除非受检警告"></a>24. 消除非受检警告</h2><p>@SuperWarnings(“unchecked”)要尽可能小的范围</p><h2 id="25-列表优于数组"><a href="#25-列表优于数组" class="headerlink" title="25. 列表优于数组"></a>25. 列表优于数组</h2><h2 id="26-优先考虑泛型"><a href="#26-优先考虑泛型" class="headerlink" title="26. 优先考虑泛型"></a>26. 优先考虑泛型</h2><h2 id="27-优先考虑泛型方法"><a href="#27-优先考虑泛型方法" class="headerlink" title="27. 优先考虑泛型方法"></a>27. 优先考虑泛型方法</h2><h2 id="28-利用有限制通配符来提升api的灵活性"><a href="#28-利用有限制通配符来提升api的灵活性" class="headerlink" title="28. 利用有限制通配符来提升api的灵活性"></a>28. 利用有限制通配符来提升api的灵活性</h2><h2 id="29-优先考虑类型安全的异构容器"><a href="#29-优先考虑类型安全的异构容器" class="headerlink" title="29. 优先考虑类型安全的异构容器"></a>29. 优先考虑类型安全的异构容器</h2>]]></content>
+        <content type="html"><![CDATA[<h1 id="第八章-通用程序设计"><a href="#第八章-通用程序设计" class="headerlink" title="第八章 通用程序设计"></a>第八章 通用程序设计</h1><h2 id="45-将局部变量的作用域最小化"><a href="#45-将局部变量的作用域最小化" class="headerlink" title="45. 将局部变量的作用域最小化"></a>45. 将局部变量的作用域最小化</h2><ul><li>要使局部变量作用域最小化的最有力的方法就只在第一次使用它的地方声明</li><li>另一个有效方法是使方法小而集中</li></ul><h2 id="46-for-each循环优于传统的for循环"><a href="#46-for-each循环优于传统的for循环" class="headerlink" title="46. for-each循环优于传统的for循环"></a>46. for-each循环优于传统的for循环</h2><blockquote><p>有三种常见的情况无法使用for-each</p></blockquote><ol><li>过滤——如果需要遍历集合，并删除指定的元素，就需要使用显示的迭代器，以便可以调用它的remove方法</li><li>转换——如果需要遍历列表或数组，并取代它部分或全部的元素值，就需要列表迭代器或数组索引，以便设定元素的值</li><li>平行迭代——如果需要并行的遍历多个集合，就需要显示的控制迭代器或索引变量，以便所有迭代器或索引变量可以同步前移</li></ol><h2 id="47-了解和使用类库"><a href="#47-了解和使用类库" class="headerlink" title="47. 了解和使用类库"></a>47. 了解和使用类库</h2><h2 id="48-如果需要精确的答案，不要使用float和double"><a href="#48-如果需要精确的答案，不要使用float和double" class="headerlink" title="48. 如果需要精确的答案，不要使用float和double"></a>48. 如果需要精确的答案，不要使用float和double</h2><blockquote><p>使用bigdecimal、int、long进行货币运算</p></blockquote><ul><li>BigDecimal：法定的舍入行为、性能不是太好</li><li>int：自己需要记录十进制小数点，且数值范围没有超过9位十进制数字</li><li>long：不超过18位十进制数字</li><li>如果超过18位数字，就必须使用BigDecimal</li></ul><h2 id="49-基本类型优于装箱基本类型"><a href="#49-基本类型优于装箱基本类型" class="headerlink" title="49. 基本类型优于装箱基本类型"></a>49. 基本类型优于装箱基本类型</h2><h2 id="50-如果其他类型更合适，则尽量避免使用字符串"><a href="#50-如果其他类型更合适，则尽量避免使用字符串" class="headerlink" title="50. 如果其他类型更合适，则尽量避免使用字符串"></a>50. 如果其他类型更合适，则尽量避免使用字符串</h2><ul><li>字符串不适合代替其他的值类型</li><li>字符串不适合代替枚举类型</li><li>字符串不适合代替聚焦类型</li><li>字符串也不适合代替能力表(capabilities)</li></ul><h2 id="51-当心字符串连接的性能"><a href="#51-当心字符串连接的性能" class="headerlink" title="51. 当心字符串连接的性能"></a>51. 当心字符串连接的性能</h2><ul><li>多个字符串的拼接优先使用stringbuilder（java8中对string的拼接进行了优化，默认也是使用stringbuilder）</li></ul><h2 id="52-通过接口引用对象"><a href="#52-通过接口引用对象" class="headerlink" title="52. 通过接口引用对象"></a>52. 通过接口引用对象</h2><ul><li>如果有合适的接口类型存在，那么对于参数、返回值、变量和域来说，就都应该使用接口类型进行声明</li></ul><h2 id="53-接口优于反射机制"><a href="#53-接口优于反射机制" class="headerlink" title="53. 接口优于反射机制"></a>53. 接口优于反射机制</h2><ul><li>通常普通应用程序在运行时不应该以反射方式访问对象</li><li>如果你编写的程序必须要与编译时未知的类一起工作，如有可能，就应该仅仅使用反射机制来实例化对象，而访问对象时则使用编译时已知的某个接口或者超类</li></ul><h2 id="54-谨慎的使用本地方法"><a href="#54-谨慎的使用本地方法" class="headerlink" title="54. 谨慎的使用本地方法"></a>54. 谨慎的使用本地方法</h2><h2 id="55-谨慎的进行优化"><a href="#55-谨慎的进行优化" class="headerlink" title="55. 谨慎的进行优化"></a>55. 谨慎的进行优化</h2><h2 id="56-遵守普遍接受的命名规范"><a href="#56-遵守普遍接受的命名规范" class="headerlink" title="56. 遵守普遍接受的命名规范"></a>56. 遵守普遍接受的命名规范</h2><ul><li><a href="https://102.alibaba.com/downloadFile.do?file=1528269849853/Java_manual.pdf" target="_blank" rel="noopener">参考阿里巴巴命名规范</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 读书 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> effective java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>枚举和注解</title>
+      <link href="/2019/07/18/book/effective-java/6.%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/"/>
+      <url>/2019/07/18/book/effective-java/6.%E6%9E%9A%E4%B8%BE%E5%92%8C%E6%B3%A8%E8%A7%A3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="第六章-枚举和注解"><a href="#第六章-枚举和注解" class="headerlink" title="第六章 枚举和注解"></a>第六章 枚举和注解</h1><h2 id="30-用enum代替int常量"><a href="#30-用enum代替int常量" class="headerlink" title="30. 用enum代替int常量"></a>30. 用enum代替int常量</h2><h2 id="31-用实例域代替序数"><a href="#31-用实例域代替序数" class="headerlink" title="31. 用实例域代替序数"></a>31. 用实例域代替序数</h2><h2 id="32-用EnumSet代替位域"><a href="#32-用EnumSet代替位域" class="headerlink" title="32. 用EnumSet代替位域"></a>32. 用EnumSet代替位域</h2><ul><li>EnumSet是线程不安全的，需要借助Collections.synchronizedSet</li></ul><pre class=" language-java"><code class="language-java">Set<span class="token operator">&lt;</span>MyEnum<span class="token operator">></span> s <span class="token operator">=</span> Collections<span class="token punctuation">.</span><span class="token function">synchronizedSet</span><span class="token punctuation">(</span>EnumSet<span class="token punctuation">.</span><span class="token function">noneOf</span><span class="token punctuation">(</span>MyEnum<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre><h2 id="33-用EnumMap代替序数索引"><a href="#33-用EnumMap代替序数索引" class="headerlink" title="33. 用EnumMap代替序数索引"></a>33. 用EnumMap代替序数索引</h2><h2 id="34-用接口模拟可伸缩的枚举"><a href="#34-用接口模拟可伸缩的枚举" class="headerlink" title="34. 用接口模拟可伸缩的枚举"></a>34. 用接口模拟可伸缩的枚举</h2><h2 id="35-注解优于命名模式"><a href="#35-注解优于命名模式" class="headerlink" title="35. 注解优于命名模式"></a>35. 注解优于命名模式</h2><h2 id="36-坚持使用Override注解"><a href="#36-坚持使用Override注解" class="headerlink" title="36. 坚持使用Override注解"></a>36. 坚持使用Override注解</h2><h2 id="37-用标记接口定义类型"><a href="#37-用标记接口定义类型" class="headerlink" title="37. 用标记接口定义类型"></a>37. 用标记接口定义类型</h2><ul><li>标记接口是没有包含方法声明的接口，而只是标明一个类实现了具有某种属性的接口</li></ul>]]></content>
       
       
       <categories>
